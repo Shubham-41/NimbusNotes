@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SignIn</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <img src="./Logo.png" alt="Logo" class="Logo" />
+      <nav>
+        <ul class="nav-links">
+          <li><a href="./Homepage.html" class="btn">Homepage</a></li>
+          <li><a href="#" class="btn" id="Search">Search</a></li>
+          <li><a href="#" class="btn">Archive</a></li>
+          <li><a href="./Calendar.html" class="btn">Calendar</a></li>
+          <li><a href="#" class="btn">Profile</a></li>
+        </ul>
+      </nav>
+    </header>
+    <div class="SignInContainer">
+      <form action="#" id="SignIn">
+        <h1 class="title">Sign In</h1>
+        <input
+          type="email"
+          name="Email"
+          id="Email"
+          placeholder="Enter Email ID"
+          required
+        />
+        <input
+          type="password"
+          name="Password"
+          id="Password"
+          placeholder="Enter Your Password"
+          required
+        />
+        <button type="submit" class="SignInbtn">Sign In</button>
+        <p class="SignInLink">
+          Don't have an Account? <a href="./SignUp.html">Sign Up</a>
+        </p>
+        <div id="Error" class="Error-Class"></div>
+      </form>
+    </div>
+
+    <script>
+      const SignInForm = document.getElementById("SignIn");
+
+      SignInForm.addEventListener("submit", function (event) {
+        event.preventDefault(); // Prevent Default Behaviour
+        const Error = document.getElementById("Error");
+        const Email = document.getElementById("Email").value;
+        const Password = document.getElementById("Password").value;
+
+        // Get the data of already existing users from localStorage
+        const users = JSON.parse(localStorage.getItem("users")) || [];
+        const user = users.find(
+          (user) => user.Email === Email && user.Password === Password // if the user is not found user  will contain undefined
+        );
+
+        // If the email and its corressponding password already exist
+        if (user) {
+          // Save signed-in user to localStorage
+          localStorage.setItem("signedInUser", JSON.stringify(user));
+          alert("Sign In Successful! Redirecting to Homepage...");
+          window.location.href = "./Homepage.html"; // Redirect user to Homepage
+        } else {
+          Error.textContent = "Invalid Email or Password.";
+        }
+      });
+    </script>
+  </body>
+</html>

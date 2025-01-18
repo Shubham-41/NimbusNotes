@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Homepage</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <img src="./Logo.png" alt="Logo" class="Logo" />
+      <nav>
+        <ul class="nav-links">
+          <li>
+            <a href="./Homepage.html" class="btn">Homepage</a>
+          </li>
+          <li><a href="#" class="btn" id="Search">Search</a></li>
+          <li><a href="#" class="btn" id="Archive">Archive</a></li>
+          <li>
+            <a href="./Calendar.html" class="btn" id="calendar">Calendar</a>
+          </li>
+          <li><a href="#" class="btn" id="ProfileButton">Profile</a></li>
+        </ul>
+      </nav>
+    </header>
+    <div class="CreateTaskBtnDiv">
+      <button type="button" class="CreateTaskBtn" id="CreateTaskBtn">
+        Create Task
+      </button>
+    </div>
+
+    <section>
+      <!-- Form for User Input of Tasks -->
+      <div class="DisplayFormContainer">
+        <form action="#" id="DisplayForm" style="display: none">
+          <label for="task-title">Enter Task Title : </label>
+          <input type="text" id="task-title" name="task-title" required />
+          <label for="task-date">Enter Due Date : </label>
+          <input type="date" id="task-date" name="task-date" required />
+
+          <div id="TaksInputContainer" class="task-items-container">
+            <div class="task-item">
+              <label for="task-description"> Enter Task Description </label>
+              <input
+                type="text"
+                name="task-description"
+                id="task-description"
+                placeholder="Enter task description"
+                required
+              />
+            </div>
+          </div>
+
+          <button type="button" id="add-item-btn">Add Task Item</button>
+          <button type="submit" id="Add-Task">Add Task</button>
+          <button type="button" id="cancel-btn">Cancel</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Display all Cards Here -->
+    <section>
+      <div id="DisplayAllTaskContainer"></div>
+    </section>
+
+    <!-- Profile Modal to Show User Profile -->
+    <div id="ProfileModal" class="modal hidden">
+      <div class="modal-content">
+        <h2>User Profile</h2>
+        <p><strong>Name:</strong> <span id="UserName"></span></p>
+        <p><strong>Email:</strong> <span id="UserEmail"></span></p>
+        <div id="Display-Flex">
+          <button id="LogoutBtn" class="btn">Log Out</button>
+          <button id="CloseProfile" class="btn">Close</button>
+        </div>
+      </div>
+    </div>
+    <script src="Archievescript.js"></script>
+  </body>
+</html>

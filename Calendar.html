@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calendar</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      #calendar-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.5); /* Dim background */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+      }
+
+      #calendar {
+        width: 80%;
+        height: 70%;
+        background: white;
+        padding: 1rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      }
+
+      #close-calendar {
+        margin-top: 1rem;
+        padding: 0.75rem 1.125rem;
+        background-color: #f44336;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      #close-calendar:hover {
+        background-color: #d32f2f;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        background-color: #333;
+        color: white;
+      }
+
+      .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 1rem;
+        margin: 0;
+        padding: 0;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+      }
+
+      .nav-links a:hover {
+        background-color: #555;
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+  </head>
+  <body>
+    <header class="header">
+      <img src="./Logo.png" alt="Logo" class="Logo" />
+      <nav>
+        <ul class="nav-links">
+          <li><a href="./Homepage.html" class="btn">Homepage</a></li>
+          <li><a href="#" class="btn" id="Search">Search</a></li>
+          <li><a href="#" class="btn" id="Archive">Archive</a></li>
+          <li><a href="#" class="btn" id="calendar-button">Calendar</a></li>
+          <li><a href="#" class="btn" id="ProfileButton">Profile</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <section id="calendar-container" class="hidden">
+      <div id="calendar"></div>
+      <button id="close-calendar">Close Calendar</button>
+    </section>
+
+    <script>
+      // Select Elements
+      const calendarContainer = document.getElementById("calendar-container");
+      const calendarButton = document.getElementById("calendar-button");
+      const closeCalendarButton = document.getElementById("close-calendar");
+
+      // Initialize FullCalendar
+      const calendarElement = document.getElementById("calendar");
+      const calendar = new FullCalendar.Calendar(calendarElement, {
+        initialView: "dayGridMonth",
+        height: "100%",
+      });
+      calendar.render();
+
+      // Show Calendar Modal
+      calendarButton.addEventListener("click", (event) => {
+        event.preventDefault(); // Prevent navigation for the calendar button
+        calendarContainer.classList.remove("hidden");
+      });
+
+      // Close Calendar Modal and Navigate to Homepage
+      closeCalendarButton.addEventListener("click", () => {
+        calendarContainer.classList.add("hidden"); // Close the calendar
+        window.location.href = "./Homepage.html"; // Redirect to Homepage
+      });
+
+      // Ensure Navigation Works for Other Links
+      document.querySelectorAll(".nav-links a").forEach((link) => {
+        link.addEventListener("click", (e) => {
+          if (link !== calendarButton) {
+            calendarContainer.classList.add("hidden"); // Close calendar when navigating elsewhere
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

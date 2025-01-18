@@ -1,0 +1,99 @@
+<!-- Sign Up Page -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SignUp</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <img src="./Logo.png" alt="Logo" class="Logo" />
+      <nav>
+        <ul class="nav-links">
+          <li><a href="./Homepage.html" class="btn">Homepage</a></li>
+          <li><a href="#" class="btn" id="Search">Search</a></li>
+          <li><a href="#" class="btn">Archive</a></li>
+          <li><a href="#" class="btn">Calendar</a></li>
+          <li><a href="#" class="btn">Profile</a></li>
+        </ul>
+      </nav>
+    </header>
+    <div class="SignUpContainer">
+      <form action="#" id="SignUp">
+        <h1 class="title">Sign Up</h1>
+        <input
+          type="text"
+          name="Fname"
+          placeholder="Enter First Name"
+          required
+        />
+        <input
+          type="text"
+          name="Lname"
+          placeholder="Enter Last Name"
+          required
+        />
+        <input
+          type="email"
+          name="Email"
+          placeholder="Enter Email ID"
+          required
+        />
+        <input
+          type="password"
+          name="Password"
+          placeholder="Enter Password"
+          required
+        />
+        <button type="submit" class="SignUpbtn">Sign Up</button>
+        <p class="SignUpLink">
+          Already have an Account? <a href="./SignIn.html">SignIn</a>
+        </p>
+        <div id="Error" class="Error-Class"></div>
+      </form>
+    </div>
+
+    <script>
+      const SignUpForm = document.getElementById("SignUp"); // Get the form
+
+      SignUpForm.addEventListener("submit", function (event) {
+        event.preventDefault(); // Prevent Default Behaviour
+        const Error = document.getElementById("Error");
+        Error.textContent = "";
+        const Form_Data = new FormData(SignUpForm);
+
+        const userData = {
+          Fname: Form_Data.get("Fname"),
+          Lname: Form_Data.get("Lname"),
+          Email: Form_Data.get("Email"),
+          Password: Form_Data.get("Password"),
+        };
+
+        // Get the data of already existing users from localStorage
+        const users = JSON.parse(localStorage.getItem("users")) || [];
+
+        // Check if the email is already present
+        let DuplicateEmail = false;
+        users.forEach((user) => {
+          if (user.Email === userData.Email) {
+            DuplicateEmail = true;
+          }
+        });
+
+        if (DuplicateEmail) {
+          Error.textContent =
+            "Email already registered. Please use a different email.";
+        } else {
+          // Save the Data of New User
+          users.push(userData);
+          localStorage.setItem("users", JSON.stringify(users));
+          alert("Sign Up Successful! Redirecting to Sign In...");
+          window.location.href = "./SignIn.html"; // Redirect user to Signin Page
+        }
+      });
+    </script>
+  </body>
+</html>
